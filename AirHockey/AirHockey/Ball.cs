@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Converters;
 using System.Windows.Shapes;
 
@@ -21,14 +22,14 @@ namespace AirHockey
 
         int mov = 5;
 
-        int xaxis, yaxis;
+        public int xaxis, yaxis;
 
         public Ball(Canvas c)
         {
             SolidColorBrush BallColor = new SolidColorBrush();
             width = 80;
             height = 80;
-            size = 25;
+            size = 40;
             xaxis = mov;
             yaxis = mov;
             BallColor.Color = Color.FromRgb(255, 0, 0);
@@ -47,6 +48,31 @@ namespace AirHockey
             height += yaxis;
             Canvas.SetTop(ellip,height);
             Canvas.SetLeft(ellip,width);
+        }
+
+        public void Xrebound()
+        {
+            if (xaxis == 5)
+            {
+                xaxis = -5;
+            }
+            else
+            {
+                xaxis = 5;
+            }
+        }
+
+        public void Yrebound()
+        {
+            if (yaxis == 5)
+            {
+                yaxis = -5;
+            }
+            else
+            {
+                yaxis = 5;
+            }
+
         }
     }
 }

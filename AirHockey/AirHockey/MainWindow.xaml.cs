@@ -30,7 +30,9 @@ namespace AirHockey
         {
             InitializeComponent();
             dt = new DispatcherTimer();
-            dt.Interval = new TimeSpan(0, 0, 0, 1);
+            dt.Interval = new TimeSpan(0, 0, 0, 0,100);
+            //dt.Start();
+            dt.IsEnabled = false;
             dt.Tick += dt_tick;
             playBall = new Ball(canvas);
             
@@ -38,23 +40,42 @@ namespace AirHockey
 
         public void dt_tick(object obj, EventArgs e)
         {
-            
             playBall.move();
+            if (playBall.width <= 0)
+            {
+                playBall.Xrebound();
+            }
+
+            if (playBall.width >= 730)
+            {
+                playBall.Xrebound();
+            }
+
+            if (playBall.height <= 0 || playBall.height >= 295)
+            {
+                playBall.Yrebound();
+            }
             
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Start_Button_Click(object sender, RoutedEventArgs e)
         {
             if (dt.IsEnabled)
             {
-                dt.IsEnabled = true;
-                dt.Start();
+                dt.IsEnabled = false;
+                Start.Content = "Start!";
+                //dt.Stop();
             }
             else
             {
-                dt.IsEnabled = false;
-                dt.Stop();
+                dt.IsEnabled = true;
+                Start.Content = "Pause!";
+                //dt.Start();
             }
         }
+
+
+
+       
     }
 }
