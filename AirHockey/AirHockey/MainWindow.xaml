@@ -1,0 +1,17 @@
+﻿<Window x:Class="AirHockey.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AirHockey"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="337" Margin="10,10,0,0" VerticalAlignment="Top" Width="772">
+            <Canvas x:Name="canvas" HorizontalAlignment="Left" Height="337" Margin="-1" VerticalAlignment="Top" Width="772"/>
+        </Border>
+        <Button x:Name="Start" Content="Start/Pause" HorizontalAlignment="Left" Margin="650,369,0,0" VerticalAlignment="Top" Width="132" Height="40" Click="Button_Click"/>
+        <Label Content="0" HorizontalAlignment="Left" Margin="83,369,0,0" VerticalAlignment="Top" Height="40" Width="75"/>
+        <Label Content="0" HorizontalAlignment="Left" Margin="251,369,0,0" VerticalAlignment="Top" Height="40" Width="63"/>
+    </Grid>
+</Window>
