@@ -20,18 +20,18 @@ namespace AirHockey
 
         public int size { get; set; }
 
-        int mov = 5;
+        int mov = 20;
 
         public int xaxis, yaxis;
 
         public Ball(Canvas c)
         {
             SolidColorBrush BallColor = new SolidColorBrush();
-            width = 80;
-            height = 80;
-            size = 40;
-            xaxis = mov;
-            yaxis = mov;
+            width = 80; // X 
+            height = 80; // y
+            size = 50; // t
+            xaxis = mov; 
+            yaxis = mov; 
             BallColor.Color = Color.FromRgb(255, 0, 0);
 
             ellip.Fill = BallColor;
@@ -52,25 +52,25 @@ namespace AirHockey
 
         public void Xrebound()
         {
-            if (xaxis == 5)
+            if (xaxis == 20)
             {
-                xaxis = -5;
+                xaxis = -20;
             }
             else
             {
-                xaxis = 5;
+                xaxis = 20;
             }
         }
 
         public void Yrebound()
         {
-            if (yaxis == 5)
+            if (yaxis == 20)
             {
-                yaxis = -5;
+                yaxis = -20;
             }
             else
             {
-                yaxis = 5;
+                yaxis = 20;
             }
 
         }

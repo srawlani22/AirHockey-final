@@ -5,13 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AirHockey"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="337" Margin="10,10,0,0" VerticalAlignment="Top" Width="772">
-            <Canvas x:Name="canvas" HorizontalAlignment="Left" Height="337" Margin="-1" VerticalAlignment="Top" Width="772"/>
+        Title="MainWindow" Height="700" Width="1000" KeyDown="Window_KeyDown" KeyUp="Window_KeyUp">
+    <Grid Margin="1,0,5,9" RenderTransformOrigin="0.5,0.5">
+        <Grid.RenderTransform>
+            <TransformGroup>
+                <ScaleTransform/>
+                <SkewTransform/>
+                <RotateTransform Angle="-0.15"/>
+                <TranslateTransform/>
+            </TransformGroup>
+        </Grid.RenderTransform>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="564" Margin="10,10,-1,0" VerticalAlignment="Top" Width="960">
+            <Canvas x:Name="canvas" HorizontalAlignment="Left" Height="564" Margin="-1,-1,0,0" VerticalAlignment="Top" Width="960"/>
         </Border>
-        <Button x:Name="Start" Content="Start Game" HorizontalAlignment="Left" Margin="650,369,0,0" VerticalAlignment="Top" Width="132" Height="40" Click="Start_Button_Click"/>
-        <Label Content="0" HorizontalAlignment="Left" Margin="83,369,0,0" VerticalAlignment="Top" Height="40" Width="75"/>
-        <Label Content="0" HorizontalAlignment="Left" Margin="251,369,0,0" VerticalAlignment="Top" Height="40" Width="63"/>
+        <Button x:Name="Start" Content="Start Game" HorizontalAlignment="Left" Margin="819,593,0,0" VerticalAlignment="Top" Width="132" Height="40" Click="Start_Button_Click"/>
+        <Label x:Name="player1" Content="0" HorizontalAlignment="Left" Margin="55,593,0,0" VerticalAlignment="Top" Height="40" Width="75"/>
+        <Label x:Name="player2" Content="0" HorizontalAlignment="Left" Margin="247,593,0,0" VerticalAlignment="Top" Height="40" Width="63"/>
     </Grid>
 </Window>
