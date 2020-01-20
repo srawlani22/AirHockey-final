@@ -1,0 +1,15 @@
+C:\Users\srawlani22\source\repos\PongFinal\PongFinal\bin\Debug\PongFinal.exe.config
+C:\Users\srawlani22\source\repos\PongFinal\PongFinal\bin\Debug\PongFinal.exe
+C:\Users\srawlani22\source\repos\PongFinal\PongFinal\bin\Debug\PongFinal.pdb
+C:\Users\srawlani22\source\repos\PongFinal\PongFinal\obj\Debug\PongFinal.csprojAssemblyReference.cache
+C:\Users\srawlani22\source\repos\PongFinal\PongFinal\obj\Debug\MainWindow.g.cs
+C:\Users\srawlani22\source\repos\PongFinal\PongFinal\obj\Debug\App.g.cs
+C:\Users\srawlani22\source\repos\PongFinal\PongFinal\obj\Debug\PongFinal_MarkupCompile.cache
+C:\Users\srawlani22\source\repos\PongFinal\PongFinal\obj\Debug\PongFinal_MarkupCompile.lref
+C:\Users\srawlani22\source\repos\PongFinal\PongFinal\obj\Debug\MainWindow.baml
+C:\Users\srawlani22\source\repos\PongFinal\PongFinal\obj\Debug\PongFinal.g.resources
+C:\Users\srawlani22\source\repos\PongFinal\PongFinal\obj\Debug\PongFinal.Properties.Resources.resources
+C:\Users\srawlani22\source\repos\PongFinal\PongFinal\obj\Debug\PongFinal.csproj.GenerateResource.cache
+C:\Users\srawlani22\source\repos\PongFinal\PongFinal\obj\Debug\PongFinal.csproj.CoreCompileInputs.cache
+C:\Users\srawlani22\source\repos\PongFinal\PongFinal\obj\Debug\PongFinal.exe
+C:\Users\srawlani22\source\repos\PongFinal\PongFinal\obj\Debug\PongFinal.pdb

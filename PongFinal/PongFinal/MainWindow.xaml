@@ -1,0 +1,22 @@
+﻿<Window x:Class="PongFinal.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PongFinal"
+        mc:Ignorable="d"
+        KeyDown="MainWindow_OnKeyDown"
+        Title="Pong" Height="503" Width="824" ResizeMode="NoResize">
+    <Canvas Width="800" Height="475" Name="MainCanvas">
+        <Image Height="475" Width="815" Source="Background/background (1).png" RenderTransformOrigin="0.5,0.5" Stretch="Fill" Canvas.Left="-5"/>
+
+        <Rectangle Height="100" Width="21" Fill="Blue" Canvas.Top="{Binding p1Pad }"/>
+        <Rectangle Height="100" Width="30" Fill="Red" Canvas.Top="{Binding p2Pad}" Canvas.Left="780"/>
+        <Line X1="400" X2="400" Y2="500" Y1="0" StrokeThickness="2" Stroke="Transparent"/>
+        <Ellipse Width="30" Height="30" Canvas.Left="{Binding BallXPos}" Canvas.Top="{Binding BallYPos}" StrokeThickness="0.1" Fill="White"/>
+
+        <Label Canvas.Left="349" Canvas.Top="35" Content="{Binding p1ScoreCount}" Height="auto" FontSize="40" Foreground="White"/>
+        <Label Canvas.Left="421" Canvas.Top="35" Content="{Binding p2ScoreCount}" Height="auto" FontSize="40" Foreground="White"/>
+
+    </Canvas>
+</Window>
