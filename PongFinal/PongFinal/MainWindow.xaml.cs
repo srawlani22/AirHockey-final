@@ -3,38 +3,40 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 using System.Media;
+using System.Net.Mime;
+using System.Runtime.Remoting.Channels;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Forms;
+using System.Windows.Media.Effects;
+using MessageBox = System.Windows.MessageBox;
 
 namespace PongFinal
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+    
     public partial class MainWindow : Window
     {
         private Paddle myPaddle = new Paddle();
         DispatcherTimer timer;
-        private SoundPlayer soundPlayer = new SoundPlayer();
+        MediaPlayer player = new MediaPlayer();
+
+        private string name1, name2;
+        //double input;
 
 
         public MainWindow()
         {
             InitializeComponent();
             timer = new DispatcherTimer();
-            timer.Stop();
+            MessageBox.Show("Enter the two names in the empty boxes below!");
             PlaySound();
             DataContext = myPaddle;
-            timer.IsEnabled = false;
-
             timer.Interval = TimeSpan.FromMilliseconds(10);
-            timer.Start();
             timer.Tick += dt_tick;
         }
 
         private double BallAngle = 155;
-        private double BallSpeed = 10;
+        private double BallSpeed = 15;
         private int PadSpeed = 50;
 
         public void dt_tick(object sender, EventArgs e)
@@ -63,13 +65,24 @@ namespace PongFinal
             if (myPaddle.BallXPos >= MainCanvas.ActualWidth - 10)
             {
                 myPaddle.p1ScoreCount += 1;
-                    ResetBall();
+                if (myPaddle.p1ScoreCount > 11)
+                {
+                    changeBallSpeed();
+                   
+                }
+                ResetBall();
+                winnerDecider();
             }
 
             if (myPaddle.BallXPos <= -10)
             {
                 myPaddle.p2ScoreCount += 1;
+                if (myPaddle.p2ScoreCount > 11)
+                {
+                    changeBallSpeed();
+                }
                 ResetBall();
+                winnerDecider();
             }
         }
 
@@ -129,30 +142,102 @@ namespace PongFinal
         private void PlaySound()
         {
             var uri = new Uri(@"bgmusic.wav", UriKind.RelativeOrAbsolute);
-            var player = new MediaPlayer();
             player.Open(uri);
-                //player.Play();
-
-                player.Position = TimeSpan.Zero;
-                player.Play();
-            
-            /*this.soundPlayer.SoundLocation = "bgmusic.wav";
-            this.soundPlayer.PlayLooping();*/
-
+            player.Play();
+            player.MediaEnded += reStartMusic;
         }
+
+        private void reStartMusic(object sender, EventArgs e)
+        {
+            player.Position = TimeSpan.Zero;
+            player.Play();
+        }
+
+        
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+
+            name1 = text1.Text;
+            name2 = text2.Text;
             if (timer.IsEnabled == true)
             {
                 //timer.IsEnabled = false;
                 timer.Stop();
+                button.Content = "Start";
             }
             else
             {
                 //timer.IsEnabled = true;
                 timer.Start();
+                button.Content = "Pause";
             }
         }
+
+        public void changeBallSpeed()
+        {
+            if (BallSpeed == 15)
+            {
+                BallSpeed = 30;
+                ball.Fill = Brushes.CornflowerBlue;
+                ball.Effect = new BlurEffect();
+            }
+
+        }
+
+        public void winnerDecider()
+        {
+            if (myPaddle.p1ScoreCount == 25)
+            {
+                MessageBox.Show( name1 + " Wins, Click OK to exit the game");
+                timer.Stop();
+            }
+            else if (myPaddle.p2ScoreCount == 25)
+            {
+                MessageBox.Show(name2 + " Wins, Click OK to exit the game");
+                timer.Stop();
+            }
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Shutdown();
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            timer.Stop();
+            MessageBox.Show("IF YOU REALLY WANNA RE-START THEN CLICK OK");
+            MessageBox.Show("Click Start to start again");
+            ResetBall();
+
+            myPaddle.p1ScoreCount = 0;
+            myPaddle.p1ScoreCount = 0;
+
+            if (myPaddle.BallXPos >= MainCanvas.ActualWidth - 10)
+            {
+                myPaddle.p1ScoreCount += 1;
+                if (myPaddle.p1ScoreCount > 11)
+                {
+                    changeBallSpeed();
+
+                }
+                ResetBall();
+                winnerDecider();
+            }
+
+            if (myPaddle.BallXPos <= -10)
+            {
+                myPaddle.p2ScoreCount += 1;
+                if (myPaddle.p2ScoreCount > 11)
+                {
+                    changeBallSpeed();
+                }
+                ResetBall();
+                winnerDecider();
+            }
+        }
+
+        
     }
 }
