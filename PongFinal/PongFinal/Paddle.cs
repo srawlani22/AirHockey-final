@@ -89,6 +89,7 @@ namespace PongFinal
         public void ChangeBallDir()
         {
             IsDirRight = !IsDirRight;
+            Console.Beep(500, 40);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -6,17 +6,28 @@
         xmlns:local="clr-namespace:PongFinal"
         mc:Ignorable="d"
         KeyDown="MainWindow_OnKeyDown"
-        Title="Pong" Height="503" Width="824" ResizeMode="NoResize">
-    <Canvas Width="800" Height="475" Name="MainCanvas">
-        <Image Height="475" Width="815" Source="Background/background (1).png" RenderTransformOrigin="0.5,0.5" Stretch="Fill" Canvas.Left="-5"/>
+        Title="Pong" Height="617.659" Width="831.531" ResizeMode="NoResize">
+    <Canvas Name="MainCanvas" Margin="9,0,-19,67">
+        <Image Height="520" Width="815" Source="Background/background (1).png" RenderTransformOrigin="0.5,0.5" Stretch="Fill" Canvas.Left="-5"/>
 
         <Rectangle Height="100" Width="21" Fill="Blue" Canvas.Top="{Binding p1Pad }"/>
         <Rectangle Height="100" Width="30" Fill="Red" Canvas.Top="{Binding p2Pad}" Canvas.Left="780"/>
         <Line X1="400" X2="400" Y2="500" Y1="0" StrokeThickness="2" Stroke="Transparent"/>
         <Ellipse Width="30" Height="30" Canvas.Left="{Binding BallXPos}" Canvas.Top="{Binding BallYPos}" StrokeThickness="0.1" Fill="White"/>
 
-        <Label Canvas.Left="349" Canvas.Top="35" Content="{Binding p1ScoreCount}" Height="auto" FontSize="40" Foreground="White"/>
-        <Label Canvas.Left="421" Canvas.Top="35" Content="{Binding p2ScoreCount}" Height="auto" FontSize="40" Foreground="White"/>
+        <Label Canvas.Left="349" Canvas.Top="18" Content="{Binding p1ScoreCount}" Height="auto" FontSize="40" Foreground="White"/>
+        <Label Canvas.Left="421" Canvas.Top="18" Content="{Binding p2ScoreCount}" Height="auto" FontSize="40" Foreground="White"/>
+        <Button Content="Start | Pause" Canvas.Left="331" Width="150" RenderTransformOrigin="0.667,1.24" Click="Button_Click" FontSize="20" Canvas.Top="525" BorderThickness="1,3,1,1" FontFamily="Cooper Black" Height="44" FontStyle="Italic" Foreground="#FF060404">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF2570BB" Offset="0"/>
+                    <GradientStop Color="#FFD86C67" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+            <Button.Effect>
+                <DropShadowEffect Color="#FFB95B5B" Opacity="0.89" ShadowDepth="4"/>
+            </Button.Effect>
+        </Button>
 
     </Canvas>
 </Window>

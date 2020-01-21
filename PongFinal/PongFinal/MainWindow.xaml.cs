@@ -1,18 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
+using System.Media;
+using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace PongFinal
 {
@@ -22,13 +14,17 @@ namespace PongFinal
     public partial class MainWindow : Window
     {
         private Paddle myPaddle = new Paddle();
-        DispatcherTimer timer = new DispatcherTimer();
+        DispatcherTimer timer;
 
 
         public MainWindow()
         {
             InitializeComponent();
+            timer = new DispatcherTimer();
+            timer.Stop();
+            PlaySound();
             DataContext = myPaddle;
+            timer.IsEnabled = false;
 
             timer.Interval = TimeSpan.FromMilliseconds(10);
             timer.Start();
@@ -37,7 +33,7 @@ namespace PongFinal
 
         private double BallAngle = 155;
         private double BallSpeed = 10;
-        private int PadSpeed = 30;
+        private int PadSpeed = 50;
 
         public void dt_tick(object sender, EventArgs e)
         {
@@ -64,14 +60,30 @@ namespace PongFinal
 
             if (myPaddle.BallXPos >= MainCanvas.ActualWidth - 10)
             {
-                myPaddle.p1ScoreCount += 1;
-                ResetBall();
+                
+                if (myPaddle.p1ScoreCount < 11)
+                {
+                    myPaddle.p1ScoreCount += 1;
+                    ResetBall();
+                }
+                else if (myPaddle.p1ScoreCount > 11)
+                {
+                    MessageBox.Show("Game Over");
+                }
             }
 
             if (myPaddle.BallXPos <= -10)
             {
-                myPaddle.p2ScoreCount += 1;
-                ResetBall();
+                
+                if (myPaddle.p2ScoreCount < 11)
+                {
+                    myPaddle.p1ScoreCount += 1;
+                    ResetBall();
+                }
+                else if (myPaddle.p2ScoreCount >= 11)
+                {
+                    MessageBox.Show("Game Over");
+                }
             }
         }
 
@@ -122,12 +134,33 @@ namespace PongFinal
 
             if (pos < 0)
                 pos = 0;
-            if (pos > (int) MainCanvas.ActualHeight - 90)
-                pos = (int) MainCanvas.ActualHeight - 90;
+            if (pos > (int) MainCanvas.ActualHeight - 100)
+                pos = (int) MainCanvas.ActualHeight - 100;
 
             return pos;
         }
 
-       
+        private void PlaySound()
+        {
+            var uri = new Uri(@"bgmusic.wav", UriKind.RelativeOrAbsolute);
+            var player = new MediaPlayer();
+
+            player.Open(uri);
+            player.Play();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (timer.IsEnabled == true)
+            {
+                //timer.IsEnabled = false;
+                timer.Stop();
+            }
+            else
+            {
+                //timer.IsEnabled = true;
+                timer.Start();
+            }
+        }
     }
 }
