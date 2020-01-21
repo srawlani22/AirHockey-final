@@ -5,6 +5,7 @@ using System.Windows.Threading;
 using System.Media;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using System.Windows.Forms;
 
 namespace PongFinal
 {
@@ -15,6 +16,7 @@ namespace PongFinal
     {
         private Paddle myPaddle = new Paddle();
         DispatcherTimer timer;
+        private SoundPlayer soundPlayer = new SoundPlayer();
 
 
         public MainWindow()
@@ -60,30 +62,14 @@ namespace PongFinal
 
             if (myPaddle.BallXPos >= MainCanvas.ActualWidth - 10)
             {
-                
-                if (myPaddle.p1ScoreCount < 11)
-                {
-                    myPaddle.p1ScoreCount += 1;
+                myPaddle.p1ScoreCount += 1;
                     ResetBall();
-                }
-                else if (myPaddle.p1ScoreCount > 11)
-                {
-                    MessageBox.Show("Game Over");
-                }
             }
 
             if (myPaddle.BallXPos <= -10)
             {
-                
-                if (myPaddle.p2ScoreCount < 11)
-                {
-                    myPaddle.p1ScoreCount += 1;
-                    ResetBall();
-                }
-                else if (myPaddle.p2ScoreCount >= 11)
-                {
-                    MessageBox.Show("Game Over");
-                }
+                myPaddle.p2ScoreCount += 1;
+                ResetBall();
             }
         }
 
@@ -144,9 +130,15 @@ namespace PongFinal
         {
             var uri = new Uri(@"bgmusic.wav", UriKind.RelativeOrAbsolute);
             var player = new MediaPlayer();
-
             player.Open(uri);
-            player.Play();
+                //player.Play();
+
+                player.Position = TimeSpan.Zero;
+                player.Play();
+            
+            /*this.soundPlayer.SoundLocation = "bgmusic.wav";
+            this.soundPlayer.PlayLooping();*/
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

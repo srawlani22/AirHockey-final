@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PongFinal"
         mc:Ignorable="d"
         KeyDown="MainWindow_OnKeyDown"
-        Title="Pong" Height="617.659" Width="831.531" ResizeMode="NoResize">
+        Title="Pong" Height="617.659" Width="831.531" ResizeMode="NoResize" Background="LightBlue">
     <Canvas Name="MainCanvas" Margin="9,0,-19,67">
         <Image Height="520" Width="815" Source="Background/background (1).png" RenderTransformOrigin="0.5,0.5" Stretch="Fill" Canvas.Left="-5"/>
 
