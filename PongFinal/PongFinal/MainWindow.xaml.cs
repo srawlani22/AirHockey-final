@@ -36,13 +36,12 @@ namespace PongFinal
         }
 
         private double BallAngle = 155;
-<<<<<<< HEAD
+
         private double BallSpeed = 20;
         private int PadSpeed = 75;
-=======
-        private double BallSpeed = 15;
-        private int PadSpeed = 60;
->>>>>>> abd623d38d60a7c21609f04d88ef3551a955cc36
+
+ 
+
 
         public void dt_tick(object sender, EventArgs e)
         {
@@ -70,13 +69,13 @@ namespace PongFinal
             if (myPaddle.BallXPos >= MainCanvas.ActualWidth - 10)
             {
                 myPaddle.p1ScoreCount += 1;
-                if (myPaddle.p1ScoreCount > 7)
+                if (myPaddle.p1ScoreCount > 7 && myPaddle.p1ScoreCount <= 15)
                 {
                     changeBallSpeed();
                    
                 }
 
-                else if (myPaddle.p1ScoreCount >= 15)
+                if (myPaddle.p1ScoreCount >= 16)
                 {
                     changeBallSpeedAgain();
                 }
@@ -87,11 +86,11 @@ namespace PongFinal
             if (myPaddle.BallXPos <= -10)
             {
                 myPaddle.p2ScoreCount += 1;
-                if (myPaddle.p2ScoreCount > 7)
+                if (myPaddle.p2ScoreCount > 7 && myPaddle.p2ScoreCount <= 15)
                 {
                     changeBallSpeed();
                 }
-                else if (myPaddle.p2ScoreCount >= 15)
+                if (myPaddle.p2ScoreCount >= 16)
                 {
                     changeBallSpeedAgain();
                 }
@@ -192,13 +191,9 @@ namespace PongFinal
         {
             if (BallSpeed == 20)
             {
-<<<<<<< HEAD
                 BallSpeed = 25;
                 ball.Fill = Brushes.GreenYellow;
                 ball.Effect = new BlurEffect();
-=======
-                BallSpeed = 20;
->>>>>>> abd623d38d60a7c21609f04d88ef3551a955cc36
             }
 
         }
@@ -208,7 +203,7 @@ namespace PongFinal
             if (BallSpeed == 25)
             {
                 BallSpeed = 30;
-                ball.Fill = Brushes.Red;
+                ball.Fill = Brushes.Goldenrod;
                 ball.Effect = new BlurEffect();
             }
         }
@@ -235,9 +230,10 @@ namespace PongFinal
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             timer.Stop();
-            MessageBox.Show("IF YOU REALLY WANNA RE-START THEN CLICK OK");
             MessageBox.Show("Click Start to start again");
             ResetBall();
+            BallSpeed = 20;
+            ball.Fill = Brushes.White;
 
             myPaddle.p1ScoreCount = 0;
             myPaddle.p2ScoreCount = 0;
@@ -245,15 +241,15 @@ namespace PongFinal
             if (myPaddle.BallXPos >= MainCanvas.ActualWidth - 10)
             {
                 myPaddle.p1ScoreCount += 1;
-                if (myPaddle.p1ScoreCount > 7)
+                if (myPaddle.p1ScoreCount > 7 && myPaddle.p1ScoreCount <= 15)
                 {
                     changeBallSpeed();
 
                 }
 
-                if (myPaddle.p1ScoreCount > 15)
+                if (myPaddle.p1ScoreCount >= 16)
                 {
-                    changeBallSpeed();
+                    changeBallSpeedAgain();
                 }
                 ResetBall();
                 winnerDecider();
@@ -262,14 +258,13 @@ namespace PongFinal
             if (myPaddle.BallXPos <= -10)
             {
                 myPaddle.p2ScoreCount += 1;
-                if (myPaddle.p2ScoreCount > 7)
+                if (myPaddle.p2ScoreCount > 7 && myPaddle.p2ScoreCount <= 15)
                 {
                     changeBallSpeed();
                 }
-
-                if (myPaddle.p2ScoreCount > 15)
+                if (myPaddle.p2ScoreCount >= 16)
                 {
-                    changeBallSpeed();
+                    changeBallSpeedAgain();
                 }
                 ResetBall();
                 winnerDecider();

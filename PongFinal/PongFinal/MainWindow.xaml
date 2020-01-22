@@ -28,13 +28,17 @@
                 <DropShadowEffect Color="#FFB95B5B" Opacity="0.89" ShadowDepth="4"/>
             </Button.Effect>
         </Button>
-        <Button Content="EXIT" Canvas.Left="50" Canvas.Top="537" Width="101" Height="30" Click="Button_Click_1">
+        <Button Content="EXIT" Canvas.Left="50" Canvas.Top="537" Width="101" Height="30" Click="Button_Click_1" FontFamily="Segoe UI Black" FontSize="14">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
         </Button>
-        <Button Content="Re-Start" Canvas.Left="657" Canvas.Top="537" Width="90" Height="30" Click="Button_Click_2"/>
-        <TextBox x:Name="text1" Height="23" Canvas.Left="183" TextWrapping="Wrap" Canvas.Top="544" Width="120" Cursor="IBeam"/>
+        <Button Content="RE- START" Canvas.Left="657" Canvas.Top="537" Width="90" Height="30" Click="Button_Click_2" FontFamily="Segoe UI Black">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+        </Button>
+        <TextBox x:Name="text1" Height="23" Canvas.Left="183" TextWrapping="Wrap" Canvas.Top="544" Width="120" Cursor="IBeam" FontFamily="Segoe UI Black"/>
         <TextBox x:Name="text2" Height="23" Canvas.Left="510" TextWrapping="Wrap" Canvas.Top="544" Width="120" Cursor="IBeam"/>
 
     </Canvas>
