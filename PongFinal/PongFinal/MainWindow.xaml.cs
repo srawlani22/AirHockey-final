@@ -37,7 +37,7 @@ namespace PongFinal
 
         private double BallAngle = 155;
         private double BallSpeed = 15;
-        private int PadSpeed = 50;
+        private int PadSpeed = 60;
 
         public void dt_tick(object sender, EventArgs e)
         {
@@ -178,9 +178,7 @@ namespace PongFinal
         {
             if (BallSpeed == 15)
             {
-                BallSpeed = 30;
-                ball.Fill = Brushes.CornflowerBlue;
-                ball.Effect = new BlurEffect();
+                BallSpeed = 20;
             }
 
         }
