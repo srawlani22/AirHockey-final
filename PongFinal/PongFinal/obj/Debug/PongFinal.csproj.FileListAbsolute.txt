@@ -28,3 +28,17 @@ C:\Users\cbetancourt22\Source\Repos\AirHockey-final\PongFinal\PongFinal\obj\Debu
 C:\Users\cbetancourt22\Source\Repos\AirHockey-final\PongFinal\PongFinal\obj\Debug\PongFinal.csproj.CoreCompileInputs.cache
 C:\Users\cbetancourt22\Source\Repos\AirHockey-final\PongFinal\PongFinal\obj\Debug\PongFinal.exe
 C:\Users\cbetancourt22\Source\Repos\AirHockey-final\PongFinal\PongFinal\obj\Debug\PongFinal.pdb
+C:\Users\Sparsh\Desktop\AirHockey-final\PongFinal\PongFinal\bin\Debug\PongFinal.exe.config
+C:\Users\Sparsh\Desktop\AirHockey-final\PongFinal\PongFinal\bin\Debug\PongFinal.exe
+C:\Users\Sparsh\Desktop\AirHockey-final\PongFinal\PongFinal\bin\Debug\PongFinal.pdb
+C:\Users\Sparsh\Desktop\AirHockey-final\PongFinal\PongFinal\obj\Debug\PongFinal.csprojAssemblyReference.cache
+C:\Users\Sparsh\Desktop\AirHockey-final\PongFinal\PongFinal\obj\Debug\MainWindow.g.cs
+C:\Users\Sparsh\Desktop\AirHockey-final\PongFinal\PongFinal\obj\Debug\App.g.cs
+C:\Users\Sparsh\Desktop\AirHockey-final\PongFinal\PongFinal\obj\Debug\PongFinal_MarkupCompile.cache
+C:\Users\Sparsh\Desktop\AirHockey-final\PongFinal\PongFinal\obj\Debug\PongFinal_MarkupCompile.lref
+C:\Users\Sparsh\Desktop\AirHockey-final\PongFinal\PongFinal\obj\Debug\MainWindow.baml
+C:\Users\Sparsh\Desktop\AirHockey-final\PongFinal\PongFinal\obj\Debug\PongFinal.g.resources
+C:\Users\Sparsh\Desktop\AirHockey-final\PongFinal\PongFinal\obj\Debug\PongFinal.Properties.Resources.resources
+C:\Users\Sparsh\Desktop\AirHockey-final\PongFinal\PongFinal\obj\Debug\PongFinal.csproj.GenerateResource.cache
+C:\Users\Sparsh\Desktop\AirHockey-final\PongFinal\PongFinal\obj\Debug\PongFinal.exe
+C:\Users\Sparsh\Desktop\AirHockey-final\PongFinal\PongFinal\obj\Debug\PongFinal.pdb
