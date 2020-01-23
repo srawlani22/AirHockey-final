@@ -6,6 +6,7 @@
  * Last Modified on: 1/22/ 2020
  */
 using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
@@ -18,13 +19,14 @@ namespace PongFinal
     public partial class MainWindow : Window
     {
         private Paddle myPaddle = new Paddle();
-        DispatcherTimer timer;                          // time in ticks
-        MediaPlayer player = new MediaPlayer();         // Background music during the game
+        DispatcherTimer timer;                                      // time in ticks
+        MediaPlayer player = new MediaPlayer();                     // Background music during the game
         private string NameOfPlayer1, NameOfPlayer2;
-        private double BallAngle = 155;                 // Starting degree angle 
-        private double BallSpeed = 20;                  // Starting speed of ball
-        private int PadSpeed = 75;                      // Starting speed of paddle
-
+        private double BallAngle = 155;                             // Starting degree angle 
+        private double BallSpeed = 20;                              // Starting speed of ball
+        private int PadSpeed = 75;                                  // Starting speed of paddle
+        private string PathToScores = "BestScoresPlayers.txt";      // To append results to the file
+        
         public MainWindow()
         {
             InitializeComponent();  
@@ -109,13 +111,28 @@ namespace PongFinal
             if (myPaddle.p1ScoreCount == 25)
             {
                 MessageBox.Show(NameOfPlayer1 + " Wins, Click OK to exit the game");
-                timer.Stop();
+
+                // Append the score of players and their names to a file (just the winner)
+                using (StreamWriter sw = File.AppendText(PathToScores))
+                {
+                    sw.WriteLine(NameOfPlayer1);
+                    sw.WriteLine(myPaddle.p1ScoreCount - myPaddle.p2ScoreCount);
+                }
+                    timer.Stop();            
             }
+
             else if (myPaddle.p2ScoreCount == 25)
             {
                 MessageBox.Show(NameOfPlayer2 + " Wins, Click OK to exit the game");
-                timer.Stop();
-            }
+
+                using (StreamWriter sw = File.AppendText(PathToScores))
+                {
+                    sw.WriteLine(NameOfPlayer2);
+                    sw.WriteLine(myPaddle.p2ScoreCount - myPaddle.p1ScoreCount);
+                }
+
+                timer.Stop();            
+            }      
         }
 
         // Implementation of collision and angle methods each time tick according to the coordinate system and its boundaries
