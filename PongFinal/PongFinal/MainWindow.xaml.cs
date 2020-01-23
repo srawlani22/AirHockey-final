@@ -22,11 +22,19 @@ namespace PongFinal
         DispatcherTimer timer;                                      // time in ticks
         MediaPlayer player = new MediaPlayer();                     // Background music during the game
         private string NameOfPlayer1, NameOfPlayer2;
+<<<<<<< HEAD
         private double BallAngle = 155;                             // Starting degree angle 
         private double BallSpeed = 20;                              // Starting speed of ball
         private int PadSpeed = 75;                                  // Starting speed of paddle
         private string PathToScores = "BestScoresPlayers.txt";      // To append results to the file
         
+=======
+        private double BallAngle = 155;                 // Starting degree angle 
+        private double BallSpeed = 20;                  // Starting speed of ball
+        private int PadSpeed = 75;                      // Starting speed of paddle
+
+
+>>>>>>> b7fc8ffaae58a5d3f12dc3c87da00f7ca652d50b
         public MainWindow()
         {
             InitializeComponent();  
@@ -155,10 +163,12 @@ namespace PongFinal
                 myPaddle.ChangeBallDir();
             }
 
+            // we store the deviation of the ball that is calculated using the ball angle
             double Rad = (Math.PI / 180) * BallAngle;
-            Vector myVec = new Vector { X = Math.Sin(Rad), Y = -Math.Cos(Rad)};
+            Vector myVec = new Vector { X = Math.Sin(Rad), Y = -Math.Cos(Rad)};// the sin and cosine values of the deviation are used to redirect the ball in a different direction using the x and y position of the ball
             myPaddle.BallXPos += myVec.X * BallSpeed;
             myPaddle.BallYPos += myVec.Y * BallSpeed;
+
 
             if (myPaddle.BallXPos >= MainCanvas.ActualWidth - 10)   // right boundary in the game, once ball passes this points, a point is considered
             {
@@ -195,10 +205,10 @@ namespace PongFinal
             }
         }          
         
-        //
+        // we check the upper and lower bounds based on the height of the canvas
         public int checkBounds(int pos, int change)
         {
-            pos += change;
+            pos += change;// we add the position to change so that it gets counted everytime the position changes
 
             if (pos < 0)
                 pos = 0;
@@ -297,6 +307,7 @@ namespace PongFinal
             player.Position = TimeSpan.Zero;                                // Song starting from the beginning and playing again 
             player.Play();
         }
+
 
     }
 }
