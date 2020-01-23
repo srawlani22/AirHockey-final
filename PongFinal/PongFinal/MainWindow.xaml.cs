@@ -1,48 +1,125 @@
-﻿using System;
+﻿/*
+ * Final Project CS- 371
+ * Main Window 
+ * Authors: Sparsh Rawlani - Xavier Betancourt
+ * Whitworth University
+ * Last Modified on: 1/22/ 2020
+ */
+using System;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
-using System.Media;
-using System.Net.Mime;
-using System.Runtime.Remoting.Channels;
-using System.Threading.Tasks;
 using System.Windows.Media;
-using System.Windows.Forms;
 using System.Windows.Media.Effects;
 using MessageBox = System.Windows.MessageBox;
 
 namespace PongFinal
-{
-    
+{ 
     public partial class MainWindow : Window
     {
         private Paddle myPaddle = new Paddle();
-        DispatcherTimer timer;
-        MediaPlayer player = new MediaPlayer();
-
-        private string name1, name2;
-        //double input;
-
+        DispatcherTimer timer;                          // time in ticks
+        MediaPlayer player = new MediaPlayer();         // Background music during the game
+        private string NameOfPlayer1, NameOfPlayer2;
+        private double BallAngle = 155;                 // Starting degree angle 
+        private double BallSpeed = 20;                  // Starting speed of ball
+        private int PadSpeed = 75;                      // Starting speed of paddle
 
         public MainWindow()
         {
-            InitializeComponent();
-            timer = new DispatcherTimer();
+            InitializeComponent();  
+            timer = new DispatcherTimer();                          // Updates the content each time tick
             MessageBox.Show("Enter the two names in the empty boxes below!");
             PlaySound();
             DataContext = myPaddle;
-            timer.Interval = TimeSpan.FromMilliseconds(10);
-            timer.Tick += dt_tick;
+            timer.Interval = TimeSpan.FromMilliseconds(10);        // set the interval of the elapsed event
+            timer.Tick += dt_tick;                                 // Increment the time ticks
         }
 
-        private double BallAngle = 155;
+        // Set the W and S keyboards to be the ones that contorl the left paddle and Up and Down arrows to control the right paddle
+        private void MainWindow_OnKeyDown(object sender, KeyboardEventArgs e)
+        {
+            if (Keyboard.IsKeyDown(Key.W)) myPaddle.P1PadPosition = checkBounds(myPaddle.P1PadPosition, -PadSpeed);
+            if (Keyboard.IsKeyDown(Key.S)) myPaddle.P1PadPosition = checkBounds(myPaddle.P1PadPosition, PadSpeed);
 
-        private double BallSpeed = 20;
-        private int PadSpeed = 75;
+            if (Keyboard.IsKeyDown(Key.Up)) myPaddle.P2PadPosition = checkBounds(myPaddle.P2PadPosition, -PadSpeed);
+            if (Keyboard.IsKeyDown(Key.Down)) myPaddle.P2PadPosition = checkBounds(myPaddle.P2PadPosition, PadSpeed);
+        }
 
- 
+        // Reset the ball to its original position when a player scores or resets, in the middle
+        public void ResetBall()
+        {
+            myPaddle.BallXPos = 370;
+            myPaddle.BallYPos = 240;
+        }
 
+        // Check the angle of the ball depending on where it's located in the coordinate system
+        public void CheckBallAngle()
+        {
+            if (myPaddle.IsDirRight)
+            {
+                BallAngle = 270 - ((myPaddle.BallYPos + 10) - (myPaddle.P2PadPosition + 40)); 
+            }
+            else
+            {
+                BallAngle = 90 - ((myPaddle.BallYPos + 10) - (myPaddle.P1PadPosition + 40));
+            }
+        }
 
+        // Make the ball collide making it go to the right or left once it hits the paddle 
+        public bool CheckBallCollision()
+        {
+            if (myPaddle.IsDirRight)
+            {
+                return myPaddle.BallXPos >= 760 &&
+                       (myPaddle.BallYPos > myPaddle.P2PadPosition - 20 && myPaddle.BallYPos < myPaddle.P2PadPosition + 80);
+            }
+            else
+            {
+                return myPaddle.BallXPos <= 20 &&
+                       (myPaddle.BallYPos > myPaddle.P1PadPosition - 20 && myPaddle.BallYPos < myPaddle.P1PadPosition + 80);
+            }
+        }
+
+        // Change the speed of the ball once the score from a player gets to 7 and then to 15, also change the colors
+        // to notice the difference visually
+        public void changeBallSpeed()
+        {
+            if (BallSpeed == 20)
+            {
+                BallSpeed = 25;
+                ball.Fill = Brushes.GreenYellow;
+                ball.Effect = new BlurEffect();
+            }         
+        }
+        public void changeBallSpeedAgain()
+        {
+            if (BallSpeed == 25)
+            {
+                BallSpeed = 30;
+                ball.Fill = Brushes.Goldenrod;
+                ball.Effect = new BlurEffect();
+            }
+        }
+        
+
+        // Decide which players wins based on who got to the 25th point first and stop the game instantly
+        public void WinnerDecider()
+        {
+            if (myPaddle.p1ScoreCount == 25)
+            {
+                MessageBox.Show(NameOfPlayer1 + " Wins, Click OK to exit the game");
+                timer.Stop();
+            }
+            else if (myPaddle.p2ScoreCount == 25)
+            {
+                MessageBox.Show(NameOfPlayer2 + " Wins, Click OK to exit the game");
+                timer.Stop();
+            }
+        }
+
+        // Implementation of collision and angle methods each time tick according to the coordinate system and its boundaries
+        // (size of the windows and location of the paddles)
         public void dt_tick(object sender, EventArgs e)
         {
             if (myPaddle.BallYPos <= 0)
@@ -62,28 +139,30 @@ namespace PongFinal
             }
 
             double Rad = (Math.PI / 180) * BallAngle;
-            Vector myVec = new Vector{ X = Math.Sin(Rad), Y = -Math.Cos(Rad)};
+            Vector myVec = new Vector { X = Math.Sin(Rad), Y = -Math.Cos(Rad)};
             myPaddle.BallXPos += myVec.X * BallSpeed;
             myPaddle.BallYPos += myVec.Y * BallSpeed;
 
-            if (myPaddle.BallXPos >= MainCanvas.ActualWidth - 10)
+            if (myPaddle.BallXPos >= MainCanvas.ActualWidth - 10)   // right boundary in the game, once ball passes this points, a point is considered
             {
                 myPaddle.p1ScoreCount += 1;
+                
+                // Change the speed of ball and color once score passes 7
                 if (myPaddle.p1ScoreCount > 7 && myPaddle.p1ScoreCount <= 15)
                 {
-                    changeBallSpeed();
-                   
+                    changeBallSpeed();            
                 }
 
+                // Change again after 16 pts
                 if (myPaddle.p1ScoreCount >= 16)
                 {
                     changeBallSpeedAgain();
                 }
                 ResetBall();
-                winnerDecider();
+                WinnerDecider();
             }
 
-            if (myPaddle.BallXPos <= -10)
+            if (myPaddle.BallXPos <= -10) // left boundary in the game
             {
                 myPaddle.p2ScoreCount += 1;
                 if (myPaddle.p2ScoreCount > 7 && myPaddle.p2ScoreCount <= 15)
@@ -95,51 +174,11 @@ namespace PongFinal
                     changeBallSpeedAgain();
                 }
                 ResetBall();
-                winnerDecider();
+                WinnerDecider();
             }
-        }
-
-        public void ResetBall()
-        {
-            myPaddle.BallXPos = 380;
-            myPaddle.BallYPos = 210;
-        }
-
-        public void CheckBallAngle()
-        {
-            if (myPaddle.IsDirRight)
-            {
-                BallAngle = 270 - ((myPaddle.BallYPos + 10) - (myPaddle.p2Pad + 40));
-            }
-            else
-            {
-                BallAngle = 90 - ((myPaddle.BallYPos + 10) - (myPaddle.p1Pad + 40));
-            }
-        }
-
-        public bool CheckBallCollision()
-        {
-            if (myPaddle.IsDirRight)
-            {
-                return myPaddle.BallXPos >= 760 &&
-                       (myPaddle.BallYPos > myPaddle.p2Pad - 20 && myPaddle.BallYPos < myPaddle.p2Pad + 80);
-            }
-            else
-            {
-                return myPaddle.BallXPos <= 20 &&
-                       (myPaddle.BallYPos > myPaddle.p1Pad - 20 && myPaddle.BallYPos < myPaddle.p1Pad + 80);
-            }
-        }
+        }          
         
-        private void MainWindow_OnKeyDown(object sender, KeyboardEventArgs e)
-        {
-            if (Keyboard.IsKeyDown(Key.W)) myPaddle.p1Pad = checkBounds(myPaddle.p1Pad, -PadSpeed);
-            if (Keyboard.IsKeyDown(Key.S)) myPaddle.p1Pad = checkBounds(myPaddle.p1Pad, PadSpeed);
-
-            if (Keyboard.IsKeyDown(Key.Up)) myPaddle.p2Pad = checkBounds(myPaddle.p2Pad, -PadSpeed);
-            if (Keyboard.IsKeyDown(Key.Down)) myPaddle.p2Pad = checkBounds(myPaddle.p2Pad, PadSpeed);
-        }
-        
+        //
         public int checkBounds(int pos, int change)
         {
             pos += change;
@@ -150,91 +189,47 @@ namespace PongFinal
                 pos = (int) MainCanvas.ActualHeight - 100;
 
             return pos;
-        }
+        }      
 
-        private void PlaySound()
-        {
-            var uri = new Uri(@"bgmusic.wav", UriKind.RelativeOrAbsolute);
-            player.Open(uri);
-            player.Play();
-            player.MediaEnded += reStartMusic;
-        }
-
-        private void reStartMusic(object sender, EventArgs e)
-        {
-            player.Position = TimeSpan.Zero;
-            player.Play();
-        }
-
-        
-
+        // START- PUSE Button and boxes that store the names of the player in the game
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
-            name1 = text1.Text;
-            name2 = text2.Text;
+            NameOfPlayer1 = text1.Text;
+            NameOfPlayer2 = text2.Text;
+            
+            // Stop the game and change the label to 'START'
             if (timer.IsEnabled == true)
-            {
-                //timer.IsEnabled = false;
+            {              
                 timer.Stop();
                 button.Content = "START";
             }
+            // Pause the game and change the label to 'STOP'
             else
             {
-                //timer.IsEnabled = true;
                 timer.Start();
                 button.Content = "PAUSE";
             }
         }
 
-        public void changeBallSpeed()
-        {
-            if (BallSpeed == 20)
-            {
-                BallSpeed = 25;
-                ball.Fill = Brushes.GreenYellow;
-                ball.Effect = new BlurEffect();
-            }
 
-        }
-
-        public void changeBallSpeedAgain()
-        {
-            if (BallSpeed == 25)
-            {
-                BallSpeed = 30;
-                ball.Fill = Brushes.Goldenrod;
-                ball.Effect = new BlurEffect();
-            }
-        }
-
-        public void winnerDecider()
-        {
-            if (myPaddle.p1ScoreCount == 25)
-            {
-                MessageBox.Show( name1 + " Wins, Click OK to exit the game");
-                timer.Stop();
-            }
-            else if (myPaddle.p2ScoreCount == 25)
-            {
-                MessageBox.Show(name2 + " Wins, Click OK to exit the game");
-                timer.Stop();
-            }
-        }
-
+        // EXIT Button 
+        // Shutdowns the application when hit
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             System.Windows.Application.Current.Shutdown();
         }
 
+        // RESTART Button
+        // Set the scores of both players to zero, center the ball, set the speed and color to the first definition
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            timer.Stop();
+            timer.Stop();                                           // Pause the game
             MessageBox.Show("Click Start to start again");
-            ResetBall();
-            BallSpeed = 20;
-            ball.Fill = Brushes.White;
 
+            ResetBall();                                            // Center the ball in the middle again
+            BallSpeed = 20;                                         // First definition of ball speed
+            ball.Fill = Brushes.White;                              // First definition of ball color
             myPaddle.p1ScoreCount = 0;
             myPaddle.p2ScoreCount = 0;
 
@@ -252,7 +247,7 @@ namespace PongFinal
                     changeBallSpeedAgain();
                 }
                 ResetBall();
-                winnerDecider();
+                WinnerDecider();
             }
 
             if (myPaddle.BallXPos <= -10)
@@ -267,10 +262,24 @@ namespace PongFinal
                     changeBallSpeedAgain();
                 }
                 ResetBall();
-                winnerDecider();
+                WinnerDecider();
             }
         }
 
-        
+        // Control the Background Music
+        private void PlaySound()
+        {
+            var uri = new Uri(@"bgmusic.wav", UriKind.RelativeOrAbsolute); // Path to the .wav file with the song to be used
+            player.Open(uri);                                              // Open the path and then play
+            player.Play();
+            player.MediaEnded += ReStartMusic;                             // Restart song when it gets to the end, i.e. loop the song
+        }
+
+        private void ReStartMusic(object sender, EventArgs e)
+        {
+            player.Position = TimeSpan.Zero;                                // Song starting from the beginning and playing again 
+            player.Play();
+        }
+
     }
 }

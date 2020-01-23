@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿/*
+ * Definition of the paddle that both players use in the game and its position
+ * in the 2-D coordinate system
+ */
+using System;
 using System.ComponentModel;
-using System.Dynamic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PongFinal
 {
@@ -16,23 +15,23 @@ namespace PongFinal
         private int p2Score = 0;
         private Ball playBall = new Ball {GetxPos = 380, GetyPos = 210, GetRightDir = true};
 
-        public int p1Pad
+        public int P1PadPosition
         {
             get { return p1PadPosition; }
             set
             {
                 p1PadPosition = value;
-                OnPropertyChanged("p1Pad");
+                OnPropertyChanged("P1PadPosition");
             }
         }
 
-        public int p2Pad
+        public int P2PadPosition
         {
             get { return p2PadPosition; }
             set
             {
                 p2PadPosition = value;
-                OnPropertyChanged("p2Pad");
+                OnPropertyChanged("P2PadPosition");
             }
         }
 
@@ -42,7 +41,7 @@ namespace PongFinal
             set
             {
                 p1Score = value;
-                OnPropertyChanged("p1ScoreCount");
+                OnPropertyChanged("p1ScoreCount"); // Label that shows the score of player 1
             }
         }
 
@@ -52,7 +51,7 @@ namespace PongFinal
             set
             {
                 p2Score = value;
-                OnPropertyChanged("p2ScoreCount");
+                OnPropertyChanged("p2ScoreCount"); // Label that shows the score of player 2
             }
         }
 
@@ -86,6 +85,8 @@ namespace PongFinal
             }
         }
 
+        // If the ball is going the right, once it hits the paddle it should go to the left, including a beep
+        // to differentiate
         public void ChangeBallDir()
         {
             IsDirRight = !IsDirRight;
