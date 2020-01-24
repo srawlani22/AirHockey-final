@@ -22,19 +22,12 @@ namespace PongFinal
         DispatcherTimer timer;                                      // time in ticks
         MediaPlayer player = new MediaPlayer();                     // Background music during the game
         private string NameOfPlayer1, NameOfPlayer2;
-<<<<<<< HEAD
+
         private double BallAngle = 155;                             // Starting degree angle 
-        private double BallSpeed = 20;                              // Starting speed of ball
+        private double BallSpeed = 15;                              // Starting speed of ball
         private int PadSpeed = 75;                                  // Starting speed of paddle
-        private string PathToScores = "BestScoresPlayers.txt";      // To append results to the file
-        
-=======
-        private double BallAngle = 155;                 // Starting degree angle 
-        private double BallSpeed = 20;                  // Starting speed of ball
-        private int PadSpeed = 75;                      // Starting speed of paddle
+        private string PathToScores = "BestScoresPlayers.txt";      // To append results to the file       
 
-
->>>>>>> b7fc8ffaae58a5d3f12dc3c87da00f7ca652d50b
         public MainWindow()
         {
             InitializeComponent();  
@@ -95,18 +88,18 @@ namespace PongFinal
         // to notice the difference visually
         public void changeBallSpeed()
         {
-            if (BallSpeed == 20)
+            if (BallSpeed == 15)
             {
-                BallSpeed = 25;
+                BallSpeed = 18;
                 ball.Fill = Brushes.GreenYellow;
                 ball.Effect = new BlurEffect();
             }         
         }
         public void changeBallSpeedAgain()
         {
-            if (BallSpeed == 25)
+            if (BallSpeed == 18)
             {
-                BallSpeed = 30;
+                BallSpeed = 22;
                 ball.Fill = Brushes.Goldenrod;
                 ball.Effect = new BlurEffect();
             }
